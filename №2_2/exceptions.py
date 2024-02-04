@@ -1,0 +1,2 @@
+class ProcessBotException(Exception):
+    pass
