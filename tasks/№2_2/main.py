@@ -113,7 +113,7 @@ def statistic(message):
         
         for result in results:
             response_msg += 'Date: ' + result.created_at.strftime("%Y/%m/%d %H:%M") + '\nResult: ' + str(result.number)
-            response_msg += '\n____________________'
+            response_msg += '\n____________________\n'
 
         if(len(response_msg) == 0):
             response_msg = 'No resultes!'
