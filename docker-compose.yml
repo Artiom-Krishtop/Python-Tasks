@@ -11,7 +11,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    container_name: python_learn
+    container_name: postgres_container
 
   pgadmin:
     image: dpage/pgadmin4
@@ -22,6 +22,30 @@ services:
       - "5050:80"
     depends_on:
       - postgres
+    container_name: pgadmin_container
+
+  tasks:
+    build: ./python
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres+psycorg2://python_learn:python_learn@postgres:5432/python_learn
+    volumes:
+      - ./tasks/№1_2:/app/№1_2
+      - ./tasks/№2_2:/app/№2_2
+    container_name: tasks_container
+
+  fastapi:
+    build: ./fastapi
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres+psycorg2://python_learn:python_learn@postgres:5432/python_learn
+    volumes:
+      - ./tasks/№3_1:/app
+    ports:
+      - "8000:8000"
+    container_name: fastapi_container
 
 volumes:
   postgres_data:
